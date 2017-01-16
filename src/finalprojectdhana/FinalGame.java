@@ -1,8 +1,10 @@
 package finalprojectdhana;
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -15,7 +17,7 @@ import javax.swing.JFrame;
 public class FinalGame extends JComponent{
 
     // Height and Width of our game
-    static final int WIDTH = 800;
+    static final int WIDTH = 400;
     static final int HEIGHT = 600;
     
     // sets the framerate and delay for our game
@@ -23,8 +25,19 @@ public class FinalGame extends JComponent{
     long desiredFPS = 60;
     long desiredTime = (1000)/desiredFPS;
     
-
+    //game avariables
+    // colour of the background of the game
+    Color background = new Color (207, 136, 185);
     
+    // make the colour of the background
+    // adding the lines the the squid needs to avoid
+    Rectangle [] sidetopbrick = new Rectangle [5];
+    Rectangle [] sidebottombrick= new Rectangle [5];
+    boolean [] passedbrick = new boolean [5];
+    
+    
+    
+
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
     // NOTE: This is already double buffered!(helps with framerate/speed)
@@ -35,10 +48,32 @@ public class FinalGame extends JComponent{
         g.clearRect(0, 0, WIDTH, HEIGHT);
         
         // GAME DRAWING GOES HERE 
+       
+        // setting up the colour background
+        g.setColor (background);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+        
+        // adding the circle squid in the game
+        g.setColor(Color.WHITE);
+        g.fillOval(175, 105, 40, 40);
+        
+        // adding the tails of the squid
+        g.setColor (Color.WHITE);
+        g.fillRect(185, 50, 5, 90);
+        
+        //adding another tail
+        g.setColor (Color.WHITE);
+        g.fillRect(200, 50, 5, 90);
+        
+        // drawing the bricks that the squid needs to avoid
+        
+        
+        
         
         
         // GAME DRAWING ENDS HERE
     }
+    
     
     
     // The main game loop
