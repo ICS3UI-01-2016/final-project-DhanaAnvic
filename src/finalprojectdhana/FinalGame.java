@@ -36,6 +36,13 @@ public class FinalGame extends JComponent{
     Rectangle [] sidebottombrick= new Rectangle [5];
     boolean [] passedbrick = new boolean [5];
     
+    //make a boolean for the player to wait the start to play the game
+    boolean start = false;
+    boolean end = false;
+    
+    // creating an integer for the speed of the game
+    int speed = 3;
+    
     // the gap between sidetopbrick and sidebottombrick
     int brickGap = 200;
     
@@ -43,7 +50,7 @@ public class FinalGame extends JComponent{
     int brickSpacing = 100;
     
     // the width of a single brick
-    int brickWidth = 150;
+    int brickWidth = 50;
     
     // the height of a brick
     int brickHeight = HEIGHT - 50;
@@ -95,15 +102,15 @@ public class FinalGame extends JComponent{
     
     // set up the bricks
     public void setupthebricks (int brickPosition){
-        // a random generator
+        // create a random generator
         Random randGen = new Random ();
-        //generate the y position
+        //generate the x position
         int brickY = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
-        //generate the new pipe X coordinate
-        int brickX = sidetopbrick [brickPosition].x;
+        //generate the new pipe y position
+        int brickX = sidetopbrick [brickPosition].y;
         brickX = brickX + (brickWidth + brickSpacing) * sidetopbrick.length;
         
-        sidebottombrick[brickPosition].setBounds(brickX, brickY, brickWidth, brickHeight);
+        sidebottombrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
         sidetopbrick[brickPosition].setBounds(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
         
         passedbrick[brickPosition] = false;
@@ -122,7 +129,7 @@ public class FinalGame extends JComponent{
         int pipeX = 600;
         Random randGen = new Random();
         for (int i = 0; i < sidetopbrick.length; i++) {
-            // generating a random y position
+            // generating a random x  position
             int pipeY = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
             sidebottombrick[i] = new Rectangle(pipeX, pipeY, brickWidth, brickHeight);
             sidetopbrick[i] = new Rectangle(pipeX, pipeY - brickGap - brickHeight, brickWidth, brickHeight);
@@ -143,6 +150,25 @@ public class FinalGame extends JComponent{
             
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
+            
+            // when the player needs to wait for the game to start
+            if (start){
+                //get the bricks moving
+                if (!end){
+                    for (int i = 0; i < sidetopbrick.length; i++){
+                        sidetopbrick[i].x = sidetopbrick[i].x - speed;
+                        sidebottombrick[i].y = sidebottombrick [i].y - speed;
+                        // check if the brick is off the screen
+                        if (sidetopbrick [i].x + brickWidth < 0){
+                            // move the pipe
+                            setupthebricks(i);
+                            
+                        }
+                        
+                    }
+                }
+                
+            }
             
             
 
