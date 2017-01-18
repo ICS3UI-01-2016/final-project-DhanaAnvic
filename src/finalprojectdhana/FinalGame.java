@@ -40,6 +40,15 @@ public class FinalGame extends JComponent{
     boolean start = false;
     boolean end = false;
     
+    // creating the gravity of the squid
+    int gravity = 1;
+    
+    //difference in zero
+    int dy = 0;
+    
+    //this will be the velocity when you click the key
+    int movevelocity = -12;
+            
     // creating an integer for the speed of the game
     int speed = 3;
     
@@ -47,7 +56,7 @@ public class FinalGame extends JComponent{
     int brickGap = 200;
     
     // distance between the brick
-    int brickSpacing = 100;
+    int brickSpacing = 200;
     
     // the width of a single brick
     int brickWidth = 50;
@@ -110,8 +119,8 @@ public class FinalGame extends JComponent{
         int brickY = sidetopbrick [brickPosition].y;
         brickX = brickX + (brickWidth + brickSpacing) * sidetopbrick.length;
         
-        sidetopbrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
-        sidebottombrick[brickPosition].setBounds (brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
+        sidetopbrick[brickPosition].setBounds (brickY, brickX, brickWidth, brickHeight);
+        sidebottombrick[brickPosition].setBounds (brickY, brickX - brickGap - brickHeight, brickWidth, brickHeight);
         
         passedbrick[brickPosition] = false;
     }
@@ -130,11 +139,11 @@ public class FinalGame extends JComponent{
         Random randGen = new Random();
         for (int i = 0; i < sidetopbrick.length; i++) {
             // generating a random y position
-            int pipeX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
+            int pipeX = randGen.nextInt(HEIGHT + 2 / minDistance) - minDistance;
             sidebottombrick[i] = new Rectangle(pipeY, pipeX, brickWidth, brickHeight);
-            sidetopbrick[i] = new Rectangle(pipeY, pipeX - brickGap - brickHeight, brickWidth, brickHeight);
+            sidetopbrick[i] = new Rectangle(pipeY, pipeX + brickGap + brickHeight, brickWidth, brickHeight);
             
-            // move the pipeX value over
+            // move the pipeY value over
             pipeY = pipeY + brickWidth + brickSpacing;
             passedbrick[i] = false;
 
