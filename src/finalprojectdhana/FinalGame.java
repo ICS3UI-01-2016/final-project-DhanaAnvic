@@ -135,7 +135,7 @@ public class FinalGame extends JComponent{
             sidetopbrick[i] = new Rectangle(pipeX, pipeY - brickGap - brickHeight, brickWidth, brickHeight);
             
             // move the pipeX value over
-            pipeX = pipeX + brickWidth + brickSpacing;
+            pipeY = pipeY + brickWidth + brickSpacing;
             passedbrick[i] = false;
 
         }
