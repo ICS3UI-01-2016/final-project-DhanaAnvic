@@ -116,11 +116,11 @@ public class FinalGame extends JComponent{
         //generate the y position
         int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
         //generate the new pipe x position
-        int brickY = sidetopbrick [brickPosition].y;
-        brickX = brickX + (brickWidth + brickSpacing) * sidetopbrick.length;
+        int brickY = sidetopbrick [brickPosition].x;
+        brickY = brickY + (brickWidth + brickSpacing) * sidetopbrick.length;
         
-        sidetopbrick[brickPosition].setBounds (brickY, brickX, brickWidth, brickHeight);
-        sidebottombrick[brickPosition].setBounds (brickY, brickX - brickGap - brickHeight, brickWidth, brickHeight);
+        sidetopbrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
+        sidebottombrick[brickPosition].setBounds (brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
         
         passedbrick[brickPosition] = false;
     }
@@ -135,16 +135,16 @@ public class FinalGame extends JComponent{
         long deltaTime;
         
         // set up the bricks
-        int pipeY = 600;
+        int brickY = 600;
         Random randGen = new Random();
         for (int i = 0; i < sidetopbrick.length; i++) {
             // generating a random y position
-            int pipeX = randGen.nextInt(HEIGHT + 2 / minDistance) - minDistance;
-            sidebottombrick[i] = new Rectangle(pipeY, pipeX, brickWidth, brickHeight);
-            sidetopbrick[i] = new Rectangle(pipeY, pipeX + brickGap + brickHeight, brickWidth, brickHeight);
+            int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
+            sidebottombrick[i] = new Rectangle(brickX, brickY, brickWidth, brickHeight);
+            sidetopbrick[i] = new Rectangle(brickX, brickY + brickGap + brickHeight, brickWidth, brickHeight);
             
             // move the pipeY value over
-            pipeY = pipeY + brickWidth + brickSpacing;
+            brickY = brickY + brickWidth + brickSpacing;
             passedbrick[i] = false;
 
         }
@@ -165,10 +165,10 @@ public class FinalGame extends JComponent{
                 //get the bricks moving
                 if (!end){
                     for (int i = 0; i < sidetopbrick.length; i++){
-                        sidetopbrick[i].x = sidetopbrick[i].x - speed;
-                        sidebottombrick[i].y = sidebottombrick [i].y - speed;
+                        sidetopbrick[i].y = sidetopbrick[i].y- speed;
+                        sidebottombrick[i].y = sidebottombrick [i].y -  speed;
                         // check if the brick is off the screen
-                        if (sidetopbrick [i].x + brickWidth < 0){
+                        if (sidetopbrick [i].y + brickWidth < 0){
                             // move the pipe
                             setupthebricks(i);
                             
