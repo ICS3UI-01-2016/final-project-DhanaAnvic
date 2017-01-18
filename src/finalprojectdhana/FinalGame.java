@@ -116,11 +116,11 @@ public class FinalGame extends JComponent{
         //generate the y position
         int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
         //generate the new pipe x position
-        int brickY = sidetopbrick [brickPosition].x;
+        int brickY = sidetopbrick [brickPosition].y;
         brickY = brickY + (brickWidth + brickSpacing) * sidetopbrick.length;
         
-        sidetopbrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
-        sidebottombrick[brickPosition].setBounds (brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
+        sidetopbrick[brickPosition].setBounds (brickY, brickX, brickWidth, brickHeight);
+        sidebottombrick[brickPosition].setBounds (brickY, brickX - brickGap - brickHeight, brickWidth, brickHeight);
         
         passedbrick[brickPosition] = false;
     }
@@ -141,7 +141,7 @@ public class FinalGame extends JComponent{
             // generating a random y position
             int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
             sidebottombrick[i] = new Rectangle(brickX, brickY, brickWidth, brickHeight);
-            sidetopbrick[i] = new Rectangle(brickX, brickY + brickGap + brickHeight, brickWidth, brickHeight);
+            sidetopbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
             
             // move the pipeY value over
             brickY = brickY + brickWidth + brickSpacing;
