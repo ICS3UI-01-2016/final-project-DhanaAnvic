@@ -104,14 +104,14 @@ public class FinalGame extends JComponent{
     public void setupthebricks (int brickPosition){
         // create a random generator
         Random randGen = new Random ();
-        //generate the x position
-        int brickY = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
-        //generate the new pipe y position
-        int brickX = sidetopbrick [brickPosition].y;
+        //generate the y position
+        int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
+        //generate the new pipe x position
+        int brickY = sidetopbrick [brickPosition].y;
         brickX = brickX + (brickWidth + brickSpacing) * sidetopbrick.length;
         
-        sidebottombrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
-        sidetopbrick[brickPosition].setBounds(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
+        sidetopbrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
+        sidebottombrick[brickPosition].setBounds (brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
         
         passedbrick[brickPosition] = false;
     }
@@ -126,13 +126,13 @@ public class FinalGame extends JComponent{
         long deltaTime;
         
         // set up the bricks
-        int pipeX = 600;
+        int pipeY = 600;
         Random randGen = new Random();
         for (int i = 0; i < sidetopbrick.length; i++) {
-            // generating a random x  position
-            int pipeY = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
-            sidebottombrick[i] = new Rectangle(pipeX, pipeY, brickWidth, brickHeight);
-            sidetopbrick[i] = new Rectangle(pipeX, pipeY - brickGap - brickHeight, brickWidth, brickHeight);
+            // generating a random y position
+            int pipeX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
+            sidebottombrick[i] = new Rectangle(pipeY, pipeX, brickWidth, brickHeight);
+            sidetopbrick[i] = new Rectangle(pipeY, pipeX - brickGap - brickHeight, brickWidth, brickHeight);
             
             // move the pipeX value over
             pipeY = pipeY + brickWidth + brickSpacing;
