@@ -113,9 +113,9 @@ public class FinalGame extends JComponent{
     public void setupthebricks (int brickPosition){
         // create a random generator
         Random randGen = new Random ();
-        //generate the y position
+        //generate the X position
         int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
-        //generate the new pipe x position
+        //generate the new pipe y position
         int brickY = sidetopbrick [brickPosition].y;
         brickY = brickY + (brickWidth + brickSpacing) * sidetopbrick.length;
         
