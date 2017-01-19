@@ -3,8 +3,11 @@ package finalprojectdhana;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Random;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -15,7 +18,7 @@ import javax.swing.JFrame;
  */
 
 
-public class FinalGame extends JComponent{
+public class FinalGame extends JComponent implements KeyListener{
 
     // Height and Width of our game
     static final int WIDTH = 400;
@@ -48,7 +51,7 @@ public class FinalGame extends JComponent{
     int gravity = 1;
     
     //difference in zero
-    int dy = 1;
+    int dy = 0;
     
     //this will be the velocity when you click the key
     int movevelocity = -12;
@@ -70,6 +73,14 @@ public class FinalGame extends JComponent{
     
     // minimum distance from edge
     int maxDistance = 200;
+    
+    // creating the left key and right key
+    boolean rightkey = false;
+    boolean leftkey = false;
+    
+    // creating a score time
+    int score = 0;
+    Font scoreFont = new Font ("Arial" , Font.BOLD, 42);
     
     
     // drawing of the game happens in here
@@ -98,6 +109,10 @@ public class FinalGame extends JComponent{
             g.fillRect(topbrick[i].x,topbrick[i].y, topbrick[i].width, topbrick[i].height);
             g.fillRect(bottombrick[i].x,bottombrick[i].y, bottombrick[i].width, bottombrick[i].height);
         }
+        //draw the font on the screen
+        g.setColor (Color.WHITE);
+        g.setFont(scoreFont);
+        g.drawString("" + score, WIDTH/2, 50);
     }
         
         
@@ -177,6 +192,8 @@ public class FinalGame extends JComponent{
                 // make the bird fly
                 if (jump && !lastJump && !end){
                 dy = movevelocity;
+                }
+                lastJump = jump;
                         
                     }
                 }
@@ -208,7 +225,7 @@ public class FinalGame extends JComponent{
             }catch(Exception e){};
         }
     }
-    }
+   
     
     /**
      * @param args the command line arguments
@@ -234,4 +251,37 @@ public class FinalGame extends JComponent{
         // starts my game loop
         game.run();
     }
-}
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }  
+    @Override
+    public void keyPressed(KeyEvent e){
+        int key = e.getExtendedKeyCode();
+        if (key == KeyEvent.VK_LEFT){
+            leftkey = true;
+        }
+        if (key == KeyEvent.VK_RIGHT){
+            rightkey = true;
+        }
+    }
+    @Override
+    public void keyReleased (KeyEvent e){
+        int key = e.getExtendedKeyCode();
+        if (key == KeyEvent.VK_LEFT){
+            leftkey = false;
+        }
+        if (key == KeyEvent.VK_RIGHT){
+            rightkey = false;
+        }
+    }
+
+    
+    }
+    
+    
+    
+        
+    
+        
+    
+
