@@ -148,7 +148,7 @@ public class FinalGame extends JComponent implements KeyListener{
         long deltaTime;
         
         // set up the bricks
-        int brickY = 600;
+        int brickY = 400;
         Random randGen = new Random();
         for (int i = 0; i < topbrick.length; i++) {
             // generating a random y position
