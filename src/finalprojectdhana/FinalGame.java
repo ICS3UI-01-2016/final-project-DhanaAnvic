@@ -32,8 +32,8 @@ public class FinalGame extends JComponent{
     
     // make the colour of the background
     // adding the lines the the squid needs to avoid
-    Rectangle [] sidetopbrick = new Rectangle [5];
-    Rectangle [] sidebottombrick= new Rectangle [5];
+    Rectangle [] topbrick = new Rectangle [5];
+    Rectangle [] bottombrick= new Rectangle [5];
     boolean [] passedbrick = new boolean [5];
     
     //make a boolean for the player to wait the start to play the game
@@ -59,10 +59,10 @@ public class FinalGame extends JComponent{
     int brickSpacing = 200;
     
     // the width of a single brick
-    int brickWidth = 50;
+    int brickWidth = HEIGHT - 50;;
     
     // the height of a brick
-    int brickHeight = HEIGHT - 50;
+    int brickHeight = 30;
     
     // minimum distance from edge
     int minDistance = 200;
@@ -86,28 +86,21 @@ public class FinalGame extends JComponent{
         // adding the circle squid in the game
         g.setColor(Color.WHITE);
         g.fillOval(175, 105, 40, 40);
-        
-        // adding the tails of the squid
-        g.setColor (Color.WHITE);
-        g.fillRect(185, 50, 5, 90);
-        
-        //adding another tail
-        g.setColor (Color.WHITE);
-        g.fillRect(200, 50, 5, 90);
-        
+       
         // drawing the bricks that the squid needs to avoid
         g.setColor (Color.DARK_GRAY);
         // drawing the bricks
-        for (int i = 0; i < sidetopbrick.length; i++){
-            g.fillRect(sidetopbrick[i].x,sidetopbrick [i].y,sidetopbrick [i].width, sidetopbrick[i].height);
-            g.fillRect(sidebottombrick [i].x, sidebottombrick[i].y, sidebottombrick[i].width , sidebottombrick[i]. height);
+        for (int i = 0; i < topbrick.length; i++){
+            g.fillRect(topbrick[i].x,topbrick[i].y, topbrick[i].width, topbrick[i].height);
+           g.fillRect(bottombrick[i].x,bottombrick[i].y, bottombrick[i].width, bottombrick[i].height);
         }
+    }
         
         
         
         
         // GAME DRAWING ENDS HERE
-    }
+        
     
     // set up the bricks
     public void setupthebricks (int brickPosition){
@@ -116,11 +109,11 @@ public class FinalGame extends JComponent{
         //generate the X position
         int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
         //generate the new pipe y position
-        int brickY = sidetopbrick [brickPosition].y;
-        brickY = brickY + (brickWidth + brickSpacing) * sidetopbrick.length;
+        int brickY = topbrick [brickPosition].y;
+        brickY = brickY + (brickWidth + brickSpacing) * topbrick.length;
         
-        sidetopbrick[brickPosition].setBounds (brickY, brickX, brickWidth, brickHeight);
-        sidebottombrick[brickPosition].setBounds (brickY, brickX - brickGap - brickHeight, brickWidth, brickHeight);
+        topbrick[brickPosition].setBounds (brickY, brickX, brickWidth, brickHeight);
+       bottombrick[brickPosition].setBounds (brickY, brickX - brickGap - brickHeight, brickWidth, brickHeight);
         
         passedbrick[brickPosition] = false;
     }
@@ -137,11 +130,11 @@ public class FinalGame extends JComponent{
         // set up the bricks
         int brickY = 600;
         Random randGen = new Random();
-        for (int i = 0; i < sidetopbrick.length; i++) {
+        for (int i = 0; i < topbrick.length; i++) {
             // generating a random y position
             int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
-            sidebottombrick[i] = new Rectangle(brickX, brickY, brickWidth, brickHeight);
-            sidetopbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
+            bottombrick[i] = new Rectangle(brickX, brickY, brickWidth, brickHeight);
+           topbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
             
             // move the pipeY value over
             brickY = brickY + brickWidth + brickSpacing;
@@ -164,11 +157,11 @@ public class FinalGame extends JComponent{
             if (start){
                 //get the bricks moving
                 if (!end){
-                    for (int i = 0; i < sidetopbrick.length; i++){
-                        sidetopbrick[i].y = sidetopbrick[i].y- speed;
-                        sidebottombrick[i].y = sidebottombrick [i].y -  speed;
+                    for (int i = 0; i < topbrick.length; i++){
+                        topbrick[i].y = topbrick[i].y- speed;
+                        bottombrick[i].y = bottombrick [i].y -  speed;
                         // check if the brick is off the screen
-                        if (sidetopbrick [i].y + brickWidth < 0){
+                        if (topbrick [i].y + brickWidth < 0){
                             // move the pipe
                             setupthebricks(i);
                             
