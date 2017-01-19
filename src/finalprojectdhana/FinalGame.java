@@ -100,14 +100,18 @@ public class FinalGame extends JComponent implements KeyListener{
         
         // adding the circle squid in the game
         g.setColor(Color.WHITE);
-        g.fillOval(175, 105, 40, 40);
+        g.fillOval(175, 90, 40, 40);
        
         // drawing the bricks that the squid needs to avoid
         g.setColor (Color.DARK_GRAY);
         // drawing the bricks
-        for (int i = 0; i < topbrick.length; i++){
-            g.fillRect(topbrick[i].x,topbrick[i].y, topbrick[i].width, topbrick[i].height);
-            g.fillRect(bottombrick[i].x,bottombrick[i].y, bottombrick[i].width, bottombrick[i].height);
+        for (int i = 150; i < 700; i+=150){
+            int randomnumber = (int)(Math.random()*100);
+            g.fillRect(0, i, randomnumber, brickHeight);
+            g.fillRect(randomnumber + 125, i, HEIGHT, brickHeight);
+            
+            //g.fillRect(topbrick[i].x,topbrick[i].y, topbrick[i].width, topbrick[i].height);
+            //g.fillRect(bottombrick[i].x,bottombrick[i].y, bottombrick[i].width, bottombrick[i].height);
         }
         
         //draw the font on the screen
@@ -133,7 +137,7 @@ public class FinalGame extends JComponent implements KeyListener{
         brickY = brickY + (brickHeight+ brickSpacing) * topbrick.length;
         
         topbrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
-        bottombrick[brickPosition].setBounds (brickY, brickX - brickGap - brickHeight, brickWidth, brickHeight);
+        bottombrick[brickPosition].setBounds (brickX, brickX - brickGap - brickHeight, brickWidth, brickHeight);
         
         passedbrick[brickPosition] = false;
     }
@@ -153,6 +157,7 @@ public class FinalGame extends JComponent implements KeyListener{
         for (int i = 0; i < topbrick.length; i++) {
             // generating a random y position
             int brickX = randGen.nextInt(HEIGHT - 2 * maxDistance) + maxDistance;
+            
             bottombrick[i] = new Rectangle(brickX, brickY, brickWidth, brickHeight);
             topbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
             
@@ -178,7 +183,7 @@ public class FinalGame extends JComponent implements KeyListener{
                 //get the bricks moving
                 if (!end){
                     for (int i = 0; i < topbrick.length; i++){
-                        topbrick[i].y = topbrick[i].y- speed;
+                        topbrick[i].y = topbrick[i].y - speed;
                         bottombrick[i].y = bottombrick [i].y -  speed;
                         // check if the brick is off the screen
                         if (topbrick [i].y + brickWidth < 0){
