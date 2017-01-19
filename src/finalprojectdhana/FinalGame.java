@@ -127,13 +127,13 @@ public class FinalGame extends JComponent implements KeyListener{
         // create a random generator
         Random randGen = new Random ();
         //generate the X position
-        int brickX = randGen.nextInt(HEIGHT - 2 * maxDistance) + maxDistance;
+        int brickX = randGen.nextInt (HEIGHT - 2 * maxDistance) + maxDistance;
         //generate the new pipe y position
         int brickY = topbrick [brickPosition].y;
-        brickY = brickY + (brickWidth + brickSpacing) * topbrick.length;
+        brickY = brickY + (brickHeight+ brickSpacing) * topbrick.length;
         
-        topbrick[brickPosition].setBounds (brickY, brickX, brickWidth, brickHeight);
-       bottombrick[brickPosition].setBounds (brickY, brickX - brickGap - brickHeight, brickWidth, brickHeight);
+        topbrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
+        bottombrick[brickPosition].setBounds (brickY, brickX - brickGap - brickHeight, brickWidth, brickHeight);
         
         passedbrick[brickPosition] = false;
     }
@@ -157,7 +157,7 @@ public class FinalGame extends JComponent implements KeyListener{
             topbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
             
             // move the pipeY value over
-            brickY = brickY + brickWidth + brickSpacing;
+            brickY = brickY + brickHeight+ brickSpacing;
             passedbrick[i] = false;
 
         }
@@ -197,7 +197,8 @@ public class FinalGame extends JComponent implements KeyListener{
                 lastJump = jump;
                         
                     }
-                }
+                    // check if bird hits top or bottom of the screen
+            
                 
             }
             
@@ -225,6 +226,7 @@ public class FinalGame extends JComponent implements KeyListener{
                }
             }catch(Exception e){};
         }
+    }
     }
    
     
