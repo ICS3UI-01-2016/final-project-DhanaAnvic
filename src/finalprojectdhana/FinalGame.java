@@ -40,11 +40,15 @@ public class FinalGame extends JComponent{
     boolean start = false;
     boolean end = false;
     
+    // jump key variable
+    boolean jump = false;
+    boolean lastJump = false;
+    
     // creating the gravity of the squid
     int gravity = 1;
     
     //difference in zero
-    int dy = 0;
+    int dy = 1;
     
     //this will be the velocity when you click the key
     int movevelocity = -12;
@@ -56,7 +60,7 @@ public class FinalGame extends JComponent{
     int brickGap = 200;
     
     // distance between the brick
-    int brickSpacing = 200;
+    int brickSpacing = 100;
     
     // the width of a single brick
     int brickWidth = HEIGHT - 50;
@@ -92,7 +96,7 @@ public class FinalGame extends JComponent{
         // drawing the bricks
         for (int i = 0; i < topbrick.length; i++){
             g.fillRect(topbrick[i].x,topbrick[i].y, topbrick[i].width, topbrick[i].height);
-           g.fillRect(bottombrick[i].x,bottombrick[i].y, bottombrick[i].width, bottombrick[i].height);
+            g.fillRect(bottombrick[i].x,bottombrick[i].y, bottombrick[i].width, bottombrick[i].height);
         }
     }
         
@@ -134,7 +138,7 @@ public class FinalGame extends JComponent{
             // generating a random y position
             int brickX = randGen.nextInt(HEIGHT - 2 * maxDistance) + maxDistance;
             bottombrick[i] = new Rectangle(brickX, brickY, brickWidth, brickHeight);
-           topbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
+            topbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
             
             // move the pipeY value over
             brickY = brickY + brickWidth + brickSpacing;
@@ -166,6 +170,13 @@ public class FinalGame extends JComponent{
                             setupthebricks(i);
                             
                         }
+                 // get the bird to fall
+                // apply gravity
+                dy = dy + gravity;
+                
+                // make the bird fly
+                if (jump && !lastJump && !end){
+                dy = movevelocity;
                         
                     }
                 }
@@ -196,6 +207,7 @@ public class FinalGame extends JComponent{
                }
             }catch(Exception e){};
         }
+    }
     }
     
     /**
