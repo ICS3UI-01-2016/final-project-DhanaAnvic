@@ -109,6 +109,7 @@ public class FinalGame extends JComponent implements KeyListener{
             g.fillRect(topbrick[i].x,topbrick[i].y, topbrick[i].width, topbrick[i].height);
             g.fillRect(bottombrick[i].x,bottombrick[i].y, bottombrick[i].width, bottombrick[i].height);
         }
+        
         //draw the font on the screen
         g.setColor (Color.WHITE);
         g.setFont(scoreFont);
