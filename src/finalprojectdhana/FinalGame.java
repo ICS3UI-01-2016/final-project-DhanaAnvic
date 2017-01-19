@@ -59,13 +59,13 @@ public class FinalGame extends JComponent{
     int brickSpacing = 200;
     
     // the width of a single brick
-    int brickWidth = HEIGHT - 50;;
+    int brickWidth = HEIGHT - 50;
     
     // the height of a brick
     int brickHeight = 30;
     
     // minimum distance from edge
-    int minDistance = 200;
+    int maxDistance = 200;
     
     
     // drawing of the game happens in here
@@ -107,7 +107,7 @@ public class FinalGame extends JComponent{
         // create a random generator
         Random randGen = new Random ();
         //generate the X position
-        int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
+        int brickX = randGen.nextInt(HEIGHT - 2 * maxDistance) + maxDistance;
         //generate the new pipe y position
         int brickY = topbrick [brickPosition].y;
         brickY = brickY + (brickWidth + brickSpacing) * topbrick.length;
@@ -132,7 +132,7 @@ public class FinalGame extends JComponent{
         Random randGen = new Random();
         for (int i = 0; i < topbrick.length; i++) {
             // generating a random y position
-            int brickX = randGen.nextInt(HEIGHT - 2 * minDistance) + minDistance;
+            int brickX = randGen.nextInt(HEIGHT - 2 * maxDistance) + maxDistance;
             bottombrick[i] = new Rectangle(brickX, brickY, brickWidth, brickHeight);
            topbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
             
