@@ -33,8 +33,8 @@ public class FinalGame extends JComponent implements KeyListener{
     // creating the colour of the background
     Color background = new Color (207, 136, 185);
     
-    // make the colour of the background
-    // adding the lines the the squid needs to avoid
+   
+    // adding the bricks the the squid needs to avoid
     Rectangle [] topbrick = new Rectangle [5];
     Rectangle [] bottombrick= new Rectangle [5];
     boolean [] passedbrick = new boolean [5];
