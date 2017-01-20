@@ -39,6 +39,9 @@ public class FinalGame extends JComponent implements KeyListener{
     Rectangle [] bottombrick= new Rectangle [5];
     boolean [] passedbrick = new boolean [5];
     
+    //creating the squid
+    Rectangle squid = new Rectangle (175, 90, 40, 40);
+    
     //make a boolean for the player to wait the start to play the game
     boolean start = false;
     boolean end = false;
@@ -98,9 +101,9 @@ public class FinalGame extends JComponent implements KeyListener{
         g.setColor (background);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         
-        // adding the circle squid in the game
-        g.setColor(Color.WHITE);
-        g.fillOval(175, 90, 40, 40);
+        // drawing the squid on the screen
+        g.setColor (Color.WHITE);
+        g.fillOval(squid.x,squid.y, squid.width, squid.height);
        
         // drawing the bricks that the squid needs to avoid
         g.setColor (Color.DARK_GRAY);
