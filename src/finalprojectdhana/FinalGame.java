@@ -153,14 +153,8 @@ public class FinalGame extends JComponent implements KeyListener{
             // when the player needs to wait for the game to start
             if (start){
             // get the pipes moving
-            if (!end){
-            for(int i = 0; i < topPipes.length; i++){
-                topPipes[i].x = topPipes [i].x - speed;
-                bottomPipes[i].x = bottomPipes [i].x - speed;
-                // check if a pipe is off the screen
-                if (topPipes [i].x + brickWidth < 0){
-                    // move the pipe
-                }
+           
+                
                     
                 
             
@@ -207,9 +201,11 @@ public class FinalGame extends JComponent implements KeyListener{
             }catch(Exception e){};
                 }
             }
-            }
-            }
     }
+            
+
+           
+    
                 
           
             
