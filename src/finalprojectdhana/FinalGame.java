@@ -34,8 +34,8 @@ public class FinalGame extends JComponent implements KeyListener{
     Color background = new Color (207, 136, 185);
     
     // create an array for the bricks that the bird need to avoid
-    Rectangle [] topbrick= new Rectangle [5];
-    Rectangle [] bottombrick = new Rectangle [5];
+    Rectangle topbrick = new Rectangle (0,0, HEIGHT - 50, 30) ;
+    Rectangle bottombrick = new Rectangle (0,0, HEIGHT - 50, 30);
     
     
     //creating the squid
@@ -109,8 +109,8 @@ public class FinalGame extends JComponent implements KeyListener{
         // drawing the bricks
         for (int i = 200; i < 700; i+=150){
             int random = (int)(Math.random()*100);
-            g.fillRect(0, i, random, brickHeight);
-            g.fillRect(random+ 125, i, HEIGHT, brickHeight);
+            g.fillRect(topbrick.x, i, random, topbrick.height);
+            g.fillRect(random + 125, i, HEIGHT, bottombrick.height);
             
             
         }
@@ -161,47 +161,10 @@ public class FinalGame extends JComponent implements KeyListener{
             }
                 //
              if (!end){
-            for(int i = 0; i < topbrick.length; i++){
-                topbrick[i].x = topbrick [i].x - speed;
-                bottombrick[i].x = bottombrick [i].x - speed;
-                // check if a pipe is off the screen
-                if (topbrick [i].x + brickHeight < 0){
-                    // move the pipe
-                    
-                   
-               
-                    
-                
-                // get the squid to move from left to right using the keylistener
-                dy = dy + gravity;
-                
-                squid.x = gravity + 3;
-                
-            
-           
-                
-                    
-                
-            
-           
-                
-                        
-                    
-
-   
-
-                           
-                            
-                        
-                 
-                        
-                    
-                  
+            for(int i = 0; i < 700; i++){
             
                 
-            
-            
-            
+              
 
             // GAME LOGIC ENDS HERE 
             
@@ -228,7 +191,7 @@ public class FinalGame extends JComponent implements KeyListener{
              }
             }
             }
-    }
+  
         
           
     
@@ -279,7 +242,6 @@ public class FinalGame extends JComponent implements KeyListener{
         int key = e.getExtendedKeyCode();
         if (key == KeyEvent.VK_LEFT){
             leftkey = true;
-            
         }
         if (key == KeyEvent.VK_RIGHT){
             rightkey = true;
