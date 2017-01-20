@@ -33,11 +33,10 @@ public class FinalGame extends JComponent implements KeyListener{
     // creating the colour of the background
     Color background = new Color (207, 136, 185);
     
-   
-    // adding the bricks the the squid needs to avoid
-    Rectangle [] topbrick = new Rectangle [5];
-    Rectangle [] bottombrick= new Rectangle [5];
-    boolean [] passedbrick = new boolean [5];
+    // create an array for the bricks that the bird need to avoid
+    Rectangle [] topPipes = new Rectangle [5];
+    Rectangle [] bottomPipes = new Rectangle [5];
+    
     
     //creating the squid
     Rectangle squid = new Rectangle (175, 90, 40, 40);
@@ -60,7 +59,7 @@ public class FinalGame extends JComponent implements KeyListener{
     int movevelocity = -12;
             
     // creating an integer for the speed of the game
-    int speed = 3;
+    int speed = 10;
     
     // the gap between sidetopbrick and sidebottombrick
     int brickGap = 200;
@@ -109,12 +108,11 @@ public class FinalGame extends JComponent implements KeyListener{
         g.setColor (Color.DARK_GRAY);
         // drawing the bricks
         for (int i = 200; i < 700; i+=150){
-            int randomnumber = (int)(Math.random()*100);
-            g.fillRect(0, i, randomnumber, brickHeight);
-            g.fillRect(randomnumber + 125, i, HEIGHT, brickHeight);
+            int random = (int)(Math.random()*100);
+            g.fillRect(0, i, random, brickHeight);
+            g.fillRect(random+ 125, i, HEIGHT, brickHeight);
             
-            //g.fillRect(topbrick[i].x,topbrick[i].y, topbrick[i].width, topbrick[i].height);
-            //g.fillRect(bottombrick[i].x,bottombrick[i].y, bottombrick[i].width, bottombrick[i].height);
+            
         }
         
         //draw the font on the screen
@@ -129,21 +127,7 @@ public class FinalGame extends JComponent implements KeyListener{
         // GAME DRAWING ENDS HERE
         
     
-    // set up the bricks
-    public void setupthebricks (int brickPosition){
-        // create a random generator
-        Random randGen = new Random ();
-        //generate the X position
-        int brickX = randGen.nextInt (HEIGHT - 2 * maxDistance) + maxDistance;
-        //generate the new pipe y position
-        int brickY = topbrick [brickPosition].y;
-        brickY = brickY + (brickHeight+ brickSpacing) * topbrick.length;
-        
-        topbrick[brickPosition].setBounds (brickX, brickY, brickWidth, brickHeight);
-        bottombrick[brickPosition].setBounds (brickX, brickX - brickGap - brickHeight, brickWidth, brickHeight);
-        
-        passedbrick[brickPosition] = false;
-    }
+   
     
     // The main game loop
     // In here is where all the logic for my game will go
@@ -154,21 +138,6 @@ public class FinalGame extends JComponent implements KeyListener{
         long startTime;
         long deltaTime;
         
-        // set up the bricks
-        int brickY = 400;
-        Random randGen = new Random();
-        for (int i = 0; i < topbrick.length; i++) {
-            // generating a random y position
-            int brickX = randGen.nextInt(HEIGHT - 2 * maxDistance) + maxDistance;
-            
-            bottombrick[i] = new Rectangle(brickX, brickY, brickWidth, brickHeight);
-            topbrick[i] = new Rectangle(brickX, brickY - brickGap - brickHeight, brickWidth, brickHeight);
-            
-            // move the pipeY value over
-            brickY = brickY + brickHeight+ brickSpacing;
-            passedbrick[i] = false;
-
-        }
          
         // the main game loop section
         // game will end if you set done = false;
@@ -183,32 +152,35 @@ public class FinalGame extends JComponent implements KeyListener{
             
             // when the player needs to wait for the game to start
             if (start){
-                //get the bricks moving
-                if (!end){
-                    for (int i = 0; i < topbrick.length; i++){
-                        topbrick[i].y = topbrick[i].y - speed;
-                        bottombrick[i].y = bottombrick [i].y -  speed;
-                        // check if the brick is off the screen
-                        if (topbrick [i].y + brickWidth < 0){
-                            // move the pipe
-                            setupthebricks(i);
-                            
-                        }
-                 // get the bird to fall
-                // apply gravity
-                dy = dy + gravity;
-                
-                // make the bird fly
-                if (jump && !lastJump && !end){
-                dy = movevelocity;
+            // get the pipes moving
+            if (!end){
+            for(int i = 0; i < topPipes.length; i++){
+                topPipes[i].x = topPipes [i].x - speed;
+                bottomPipes[i].x = bottomPipes [i].x - speed;
+                // check if a pipe is off the screen
+                if (topPipes [i].x + brickWidth < 0){
+                    // move the pipe
                 }
-                lastJump = jump;
+                    
+                
+            
+           
+                
                         
-                    }
-                    // check if bird hits top or bottom of the screen
+                    
+
+   
+
+                           
+                            
+                        
+                 
+                        
+                    
+                  
             
                 
-            }
+            
             
             
 
@@ -233,9 +205,18 @@ public class FinalGame extends JComponent implements KeyListener{
                  Thread.sleep(desiredTime - deltaTime);
                }
             }catch(Exception e){};
-        }
+                }
+            }
+            }
+            }
     }
-    }
+                
+          
+            
+    
+        
+   
+    
    
     
     /**
