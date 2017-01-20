@@ -34,8 +34,8 @@ public class FinalGame extends JComponent implements KeyListener{
     Color background = new Color (207, 136, 185);
     
     // create an array for the bricks that the bird need to avoid
-    Rectangle [] topPipes = new Rectangle [5];
-    Rectangle [] bottomPipes = new Rectangle [5];
+    Rectangle [] topbrick= new Rectangle [5];
+    Rectangle [] bottombrick = new Rectangle [5];
     
     
     //creating the squid
@@ -125,6 +125,12 @@ public class FinalGame extends JComponent implements KeyListener{
         
         
         // GAME DRAWING ENDS HERE
+    
+    
+            
+            
+        
+    
         
     
    
@@ -152,7 +158,11 @@ public class FinalGame extends JComponent implements KeyListener{
             
             // when the player needs to wait for the game to start
             if (start){
-            // get the pipes moving
+                for (int i = 0; i < topbrick.length; i++){
+                    topbrick[i].x = topbrick [i].x + speed;
+                    
+                }
+            // get the bricks moving
            
                 
                     
