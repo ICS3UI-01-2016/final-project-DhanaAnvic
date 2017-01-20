@@ -105,7 +105,7 @@ public class FinalGame extends JComponent implements KeyListener{
         // drawing the bricks that the squid needs to avoid
         g.setColor (Color.DARK_GRAY);
         // drawing the bricks
-        for (int i = 150; i < 700; i+=150){
+        for (int i = 200; i < 700; i+=150){
             int randomnumber = (int)(Math.random()*100);
             g.fillRect(0, i, randomnumber, brickHeight);
             g.fillRect(randomnumber + 125, i, HEIGHT, brickHeight);
