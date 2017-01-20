@@ -59,7 +59,7 @@ public class FinalGame extends JComponent implements KeyListener{
     int movevelocity = -12;
             
     // creating an integer for the speed of the game
-    int speed = 10;
+    int speed = 3;
     
     // the gap between sidetopbrick and sidebottombrick
     int brickGap = 200;
@@ -158,12 +158,25 @@ public class FinalGame extends JComponent implements KeyListener{
             
             // when the player needs to wait for the game to start
             if (start){
-                for (int i = 0; i < topbrick.length; i++){
-                    topbrick[i].x = topbrick [i].x + speed;
-                    bottombrick [i].x = bottombrick [i].x + speed;
+            }
+                //
+             if (!end){
+            for(int i = 0; i < topbrick.length; i++){
+                topbrick[i].x = topbrick [i].x - speed;
+                bottombrick[i].x = bottombrick [i].x - speed;
+                // check if a pipe is off the screen
+                if (topbrick [i].x + brickHeight < 0){
+                    // move the pipe
+                   
+               
                     
-                }
-            // get the bricks moving
+                
+                // get the squid to move from left to right using the keylistener
+                dy = dy + gravity;
+                
+                squid.x = gravity + 3;
+                
+            
            
                 
                     
@@ -211,8 +224,14 @@ public class FinalGame extends JComponent implements KeyListener{
                }
             }catch(Exception e){};
                 }
+             }
+            }
             }
     }
+        
+          
+    
+        
             
 
            
@@ -259,6 +278,7 @@ public class FinalGame extends JComponent implements KeyListener{
         int key = e.getExtendedKeyCode();
         if (key == KeyEvent.VK_LEFT){
             leftkey = true;
+            
         }
         if (key == KeyEvent.VK_RIGHT){
             rightkey = true;
@@ -274,9 +294,10 @@ public class FinalGame extends JComponent implements KeyListener{
             rightkey = false;
         }
     }
+}
 
     
-    }
+    
     
     
     
