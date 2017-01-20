@@ -160,6 +160,7 @@ public class FinalGame extends JComponent implements KeyListener{
             if (start){
                 for (int i = 0; i < topbrick.length; i++){
                     topbrick[i].x = topbrick [i].x + speed;
+                    bottombrick [i].x = bottombrick [i].x + speed;
                     
                 }
             // get the bricks moving
