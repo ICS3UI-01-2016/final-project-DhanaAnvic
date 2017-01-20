@@ -167,6 +167,7 @@ public class FinalGame extends JComponent implements KeyListener{
                 // check if a pipe is off the screen
                 if (topbrick [i].x + brickHeight < 0){
                     // move the pipe
+                    
                    
                
                     
