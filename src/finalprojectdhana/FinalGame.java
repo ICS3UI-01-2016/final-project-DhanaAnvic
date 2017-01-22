@@ -33,13 +33,9 @@ public class FinalGame extends JComponent implements KeyListener{
     // creating the colour of the background
     Color background = new Color (207, 136, 185);
     
-    // create an array for the bricks that the bird need to avoid
-    Rectangle topbrick = new Rectangle (0,0, HEIGHT - 50, 30) ;
-    Rectangle bottombrick = new Rectangle (0,0, HEIGHT - 50, 30);
-    
     
     //creating the squid
-    Rectangle squid = new Rectangle (175, 90, 40, 40);
+    Rectangle squid = new Rectangle (175, 90, 30, 30);
     
     //make a boolean for the player to wait the start to play the game
     boolean start = false;
@@ -48,6 +44,11 @@ public class FinalGame extends JComponent implements KeyListener{
     // jump key variable
     boolean jump = false;
     boolean lastJump = false;
+    
+    // create an array of bricks
+    Rectangle [] topbrick = new Rectangle [5];
+    Rectangle [] bottombrick = new Rectangle [5];
+    boolean [] passedbrick = new boolean [5];
     
     // creating the gravity of the squid
     int gravity = 1;
@@ -80,6 +81,9 @@ public class FinalGame extends JComponent implements KeyListener{
     boolean rightkey = false;
     boolean leftkey = false;
     
+    
+    
+    
     // creating a score time
     int score = 0;
     Font scoreFont = new Font ("Arial" , Font.BOLD, 42);
@@ -104,28 +108,43 @@ public class FinalGame extends JComponent implements KeyListener{
         g.setColor (Color.WHITE);
         g.fillOval(squid.x,squid.y, squid.width, squid.height);
        
-        // drawing the bricks that the squid needs to avoid
-        g.setColor (Color.DARK_GRAY);
+        
         // drawing the bricks
         for (int i = 200; i < 700; i+=150){
             int random = (int)(Math.random()*100);
-            g.fillRect(topbrick.x, i, random, topbrick.height);
-            g.fillRect(random + 125, i, HEIGHT, bottombrick.height);
+            g.fillRect(0, i, random, brickHeight);
+            g.fillRect(random + 125, i, HEIGHT, brickHeight);
             
             
-        }
+       }
         
         //draw the font on the screen
         g.setColor (Color.WHITE);
         g.setFont(scoreFont);
         g.drawString("" + score, WIDTH/2, 50);
     }
-        
+       
         
         
         
         // GAME DRAWING ENDS HERE
+     public void setbrick (int pipePosition){
+        // a randopm number generator
+        Random randGen = new Random ();
+        // generate a random Y position
+        int pipeY = randGen.nextInt(HEIGHT - 2 * maxDistance)+ maxDistance;
+        //generate the new pipe x position
+        int pipeX = topbrick [pipePosition].x;
+        //to moves the set of pipes to the next coordinates
+        pipeX = pipeX + (brickHeight + brickSpacing)* topbrick.length;
+            bottombrick [pipePosition].setBounds (pipeX, pipeY, brickWidth, brickHeight);
+            topbrick [pipePosition].setBounds(pipeX, pipeY - brickGap - brickHeight, brickWidth, brickHeight);
+            
+            passedbrick [pipePosition] = false;
+     }
     
+    
+     
     
             
             
@@ -159,9 +178,20 @@ public class FinalGame extends JComponent implements KeyListener{
             // when the player needs to wait for the game to start
             if (start){
             }
-                //
-             if (!end){
-            for(int i = 0; i < 700; i++){
+                //get the bricks moving
+                if (!end){
+                     for(int i = 0; i < topbrick.length; i++){
+                         topbrick[i].y = topbrick [i].y - speed;
+                         bottombrick [i].y = bottombrick [i].y - speed;
+                         //get the bricks moving
+                         setbrick(i);
+                     }
+                     
+                
+                
+                         
+                         
+                
             
                 
               
@@ -190,8 +220,7 @@ public class FinalGame extends JComponent implements KeyListener{
                 }
              }
             }
-            }
-  
+     
         
           
     
@@ -257,7 +286,10 @@ public class FinalGame extends JComponent implements KeyListener{
             rightkey = false;
         }
     }
-}
+
+    
+    }
+
 
     
     
