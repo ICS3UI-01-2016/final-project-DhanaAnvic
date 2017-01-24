@@ -191,7 +191,6 @@ public class FinalGame extends JComponent implements KeyListener{
             
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
-            // when the player needs to wait for the game to start
                 //moving the player from left to right
                 if (leftkey) {
                     squid.x = squid.x - 3;
@@ -264,6 +263,8 @@ public class FinalGame extends JComponent implements KeyListener{
             }catch(Exception e){};
                 }
              }
+        
+    
     
     
  
