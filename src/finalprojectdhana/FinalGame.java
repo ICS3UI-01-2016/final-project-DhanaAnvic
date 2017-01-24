@@ -205,7 +205,7 @@ public class FinalGame extends JComponent implements KeyListener{
                     // go through all of rectangles
                     for (Rectangle sideRectangle : rightRectangle) {
                         // making the rectangles to go down
-                        sideRectangle.y = sideRectangle.y + 3;
+                        sideRectangle.y = sideRectangle.y + 2;
                         if (sideRectangle.y > 600){
                             sideRectangle.y = - 100;
                         }
@@ -236,15 +236,7 @@ public class FinalGame extends JComponent implements KeyListener{
                             score = score + 1 ;
                         }
                     }
-                                         
 
-                    
-                    
-
-                    
-                        
-                            
-                    
    
             // GAME LOGIC ENDS HERE 
             
@@ -270,16 +262,6 @@ public class FinalGame extends JComponent implements KeyListener{
                 }
              }
     
-    
-        
-    
-    
-    
- 
-            
-  
-     
-        
           
     /**
      * @param args the command line arguments
