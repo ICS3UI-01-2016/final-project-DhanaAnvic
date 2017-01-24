@@ -191,7 +191,10 @@ public class FinalGame extends JComponent implements KeyListener{
             startTime = System.currentTimeMillis();
             
             // all your game rules and move is done in here
-            // GAME LOGIC STARTS HERE 
+            // GAME LOGIC STARTS HERE
+            if (start){
+                // make the player wait to play the game
+   
                 //moving the player from left to right
                 if (leftkey) {
                     squid.x = squid.x - 3;
@@ -202,7 +205,7 @@ public class FinalGame extends JComponent implements KeyListener{
                     // go through all of rectangles
                     for (Rectangle sideRectangle : rightRectangle) {
                         // making the rectangles to go down
-                        sideRectangle.y = sideRectangle.y + 2;
+                        sideRectangle.y = sideRectangle.y + 3;
                         if (sideRectangle.y > 600){
                             sideRectangle.y = - 100;
                         }
@@ -210,7 +213,7 @@ public class FinalGame extends JComponent implements KeyListener{
                     // go through all of diamonds
                     for (Rectangle diamond : diamonds){
                         //making the diamonds to go down
-                        diamond.y = diamond.y + 3;
+                        diamond.y = diamond.y + 2;
                         if (diamond.y > 600){
                             diamond.y = -100;
                             
@@ -266,6 +269,8 @@ public class FinalGame extends JComponent implements KeyListener{
             }catch(Exception e){};
                 }
              }
+    }
+    
         
     
     
