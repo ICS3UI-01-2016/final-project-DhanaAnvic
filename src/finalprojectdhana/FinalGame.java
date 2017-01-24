@@ -48,6 +48,7 @@ public class FinalGame extends JComponent implements KeyListener{
     boolean rightkey = false;
     boolean leftkey = false;
     
+    
     // making a variable for the gravity
     int gravity = 0;
     
@@ -229,9 +230,11 @@ public class FinalGame extends JComponent implements KeyListener{
                     for (Rectangle diamond : diamonds ){
                         // when the squid will collide with a diamond it will ad a score
                         if (squid.intersects (diamond)){
-                            score = score++;
+                            score = score + 1 ;
                         }
                     }
+                                         
+
                     
                     
 
