@@ -192,7 +192,7 @@ public class FinalGame extends JComponent implements KeyListener{
             
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE
-            if (start){
+           // if (start){
                 // make the player wait to play the game
    
                 //moving the player from left to right
@@ -269,7 +269,7 @@ public class FinalGame extends JComponent implements KeyListener{
             }catch(Exception e){};
                 }
              }
-    }
+    
     
         
     
