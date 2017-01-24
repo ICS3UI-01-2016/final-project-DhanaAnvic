@@ -40,6 +40,7 @@ public class FinalGame extends JComponent implements KeyListener{
     int moveY = 0;
     
     // if the player is hit with the side
+    boolean start = false;
     boolean dead = false;
     
     int gameFinished = 0;
@@ -149,9 +150,9 @@ public class FinalGame extends JComponent implements KeyListener{
                 g.drawImage(this.sideRectangle, sideRectangle.x, sideRectangle.y, sideRectangle.width, sideRectangle.height, null);
             }
             
-            //if (gameFinished == 0){//game over screen
+           //if (gameFinished == 0){//game over screen
             
-            //g.drawImage(gameOver, 0, 0, WIDTH, HEIGHT, null);
+           //g.drawImage(gameOver, 0, 0, WIDTH, HEIGHT, null);
             
       
 
@@ -165,7 +166,10 @@ public class FinalGame extends JComponent implements KeyListener{
        
      
         // GAME DRAWING ENDS HERE
-
+ 
+     
+     
+ 
    
     // The main game loop
     // In here is where all the logic for my game will go
@@ -187,7 +191,6 @@ public class FinalGame extends JComponent implements KeyListener{
             
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
-            
             // when the player needs to wait for the game to start
                 //moving the player from left to right
                 if (leftkey) {
@@ -219,7 +222,8 @@ public class FinalGame extends JComponent implements KeyListener{
                          // when the squid will collide a rectangle
                         if(squid.intersects(sideRectangle)){
                             // if yes the squid is hit
-                            dead = true;
+                            done = true;
+                            
                         }
                     }                 
                     // go through all of diamonds
@@ -230,9 +234,9 @@ public class FinalGame extends JComponent implements KeyListener{
                         }
                     }
                     
-                    if(dead){
-                        gameFinished = 0;
-                    }
+                    
+
+                    
                         
                             
                     
@@ -260,6 +264,8 @@ public class FinalGame extends JComponent implements KeyListener{
             }catch(Exception e){};
                 }
              }
+    
+    
  
             
   
