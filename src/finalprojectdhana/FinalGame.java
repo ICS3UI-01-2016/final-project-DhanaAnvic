@@ -192,9 +192,6 @@ public class FinalGame extends JComponent implements KeyListener{
             
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE
-           // if (start){
-                // make the player wait to play the game
-   
                 //moving the player from left to right
                 if (leftkey) {
                     squid.x = squid.x - 3;
@@ -202,6 +199,7 @@ public class FinalGame extends JComponent implements KeyListener{
                 if (rightkey) {
                     squid.x = squid.x + 3;
                 }
+              
                     // go through all of rectangles
                     for (Rectangle sideRectangle : rightRectangle) {
                         // making the rectangles to go down
@@ -261,6 +259,9 @@ public class FinalGame extends JComponent implements KeyListener{
             }catch(Exception e){};
                 }
              }
+        
+    
+    
     
           
     /**
