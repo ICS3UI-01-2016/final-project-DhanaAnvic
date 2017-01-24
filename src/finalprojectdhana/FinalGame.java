@@ -8,7 +8,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -29,58 +33,81 @@ public class FinalGame extends JComponent implements KeyListener{
     long desiredFPS = 60;
     long desiredTime = (1000)/desiredFPS;
     
+    // player position variables
+    int x = 500;
+    int y = 100; 
+    int moveX = 0;
+    int moveY = 0;
+    
+    // if the player is hit with the side
+    boolean dead = false;
+    
+    int gameFinished = 0;
     //game avariables
-    // creating the colour of the background
-    Color background = new Color (207, 136, 185);
-    
-    
-    //creating the squid
-    Rectangle squid = new Rectangle (175, 90, 30, 30);
-    
-    //make a boolean for the player to wait the start to play the game
-    boolean start = false;
-    boolean end = false;
-    
-    // jump key variable
-    boolean jump = false;
-    boolean lastJump = false;
-    
-    // create an array of bricks
-    Rectangle [] topbrick = new Rectangle [5];
-    Rectangle [] bottombrick = new Rectangle [5];
-    boolean [] passedbrick = new boolean [5];
-    
-    // creating the gravity of the squid
-    int gravity = 1;
-    
-    //difference in zero
-    int dy = 0;
-    
-    //this will be the velocity when you click the key
-    int movevelocity = -12;
-            
-    // creating an integer for the speed of the game
-    int speed = 3;
-    
-    // the gap between sidetopbrick and sidebottombrick
-    int brickGap = 200;
-    
-    // distance between the brick
-    int brickSpacing = 100;
-    
-    // the width of a single brick
-    int brickWidth = HEIGHT - 50;
-    
-    // the height of a brick
-    int brickHeight = 30;
-    
-    // minimum distance from edge
-    int maxDistance = 200;
-    
-    // creating the left key and right key
     boolean rightkey = false;
     boolean leftkey = false;
     
+    // making a variable for the gravity
+    int gravity = 0;
+    
+    //creating the squid
+    Rectangle squid = new Rectangle (175, 550, 30, 30);
+    
+ 
+    int frameCount = 0;
+    
+    // create diamonds
+    ArrayList <Rectangle> diamonds = new ArrayList<>();
+    
+    // create bricks
+    ArrayList<Rectangle> rightRectangle = new ArrayList<>();
+    
+    // import images 
+    BufferedImage sideRectangle = loadImage("rectangle2.png");
+    BufferedImage Background = loadImage("background.png");
+    BufferedImage diamond = loadImage ("diamond.png");
+    BufferedImage gameOver = loadImage("gameover.png");
+    
+    
+    public BufferedImage loadImage(String filename) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(filename));
+        } catch (Exception e) {
+            System.out.println("Error loading " + filename);
+        }
+        return img;
+    }
+
+    public FinalGame (){
+        rightRectangle = new ArrayList<>();
+        rightRectangle.add(new Rectangle(75, 50, 40, 20));
+        rightRectangle.add(new Rectangle(0, 150, 40, 20));
+        rightRectangle.add(new Rectangle(177, 440, 40, 20));
+        rightRectangle.add(new Rectangle(250, 0, 40, 20));
+        rightRectangle.add(new Rectangle(150, 400, 40, 20));
+        rightRectangle.add(new Rectangle(280, 480, 40, 20));
+        rightRectangle.add(new Rectangle(350, 250, 40, 20));
+        rightRectangle.add(new Rectangle(275, 75, 40, 20));
+        rightRectangle.add(new Rectangle(175, 345, 40, 20));
+        rightRectangle.add(new Rectangle(350, 300, 40, 20));
+        rightRectangle.add(new Rectangle(200, 200, 40, 20));
+        rightRectangle.add(new Rectangle(500, 375, 40, 20));
+        rightRectangle.add(new Rectangle(50, 500, 40, 20));
+        rightRectangle.add(new Rectangle(120, 550, 40, 20));
+        rightRectangle.add(new Rectangle(480, 260, 40, 20));
+        
+        diamonds = new ArrayList<>();
+        diamonds.add (new Rectangle (30, 0, 30, 15));
+        diamonds.add (new Rectangle (100, 10, 30, 15));
+        diamonds.add (new Rectangle (250, 100, 30, 15));
+        diamonds.add (new Rectangle (200, 250, 30, 15));
+        diamonds.add (new Rectangle (450, 300, 30, 15));
+        diamonds.add (new Rectangle (350, 89, 30, 15));
+        diamonds.add (new Rectangle (300, 50, 30, 15));
+        diamonds.add (new Rectangle (390, 175, 30, 15));
+      
+    }
     
     
     
@@ -95,65 +122,51 @@ public class FinalGame extends JComponent implements KeyListener{
     @Override
     public void paintComponent(Graphics g)
     {
-        // always clear the screen first!
-        g.clearRect(0, 0, WIDTH, HEIGHT);
-        
+       
         // GAME DRAWING GOES HERE 
-       
-        // setting up the colour background
-        g.setColor (background);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+
+             
+           // drawing the side rectangle on the side of the screen
+            g.drawImage(sideRectangle,0, 0, 100, 80, null);
         
-        // drawing the squid on the screen
-        g.setColor (Color.WHITE);
-        g.fillOval(squid.x,squid.y, squid.width, squid.height);
-       
-        
-        // drawing the bricks
-        for (int i = 200; i < 700; i+=150){
-            int random = (int)(Math.random()*100);
-            g.fillRect(0, i, random, brickHeight);
-            g.fillRect(random + 125, i, HEIGHT, brickHeight);
+
+            // Creating the background of the game
+            g.drawImage(Background, 0, 0, null);
             
+            // drawing the squid or player of the game
+            g.setColor(Color.DARK_GRAY);
+            g.fillOval (squid.x, squid.y, squid.width, squid.height);
             
-       }
-        
+            //drawing the diamonds
+            g.setColor (Color.CYAN);
+            for(Rectangle diamond : diamonds ){
+                g.drawImage(this.diamond, diamond.x, diamond.y, diamond.width, diamond.height,null);
+            }
+
+            // drawing the rectangles or bricks of the game
+            g.setColor(Color.GRAY);
+            for(Rectangle sideRectangle : rightRectangle){
+                g.drawImage(this.sideRectangle, sideRectangle.x, sideRectangle.y, sideRectangle.width, sideRectangle.height, null);
+            }
+            
+            //if (gameFinished == 0){//game over screen
+            
+            //g.drawImage(gameOver, 0, 0, WIDTH, HEIGHT, null);
+            
+      
+
         //draw the font on the screen
         g.setColor (Color.WHITE);
         g.setFont(scoreFont);
         g.drawString("" + score, WIDTH/2, 50);
-    }
+            }
+    
+    
        
-        
-        
-        
-        // GAME DRAWING ENDS HERE
-     public void setbrick (int pipePosition){
-        // a randopm number generator
-        Random randGen = new Random ();
-        // generate a random Y position
-        int pipeY = randGen.nextInt(HEIGHT - 2 * maxDistance)+ maxDistance;
-        //generate the new pipe x position
-        int pipeX = topbrick [pipePosition].x;
-        //to moves the set of pipes to the next coordinates
-        pipeX = pipeX + (brickHeight + brickSpacing)* topbrick.length;
-            bottombrick [pipePosition].setBounds (pipeX, pipeY, brickWidth, brickHeight);
-            topbrick [pipePosition].setBounds(pipeX, pipeY - brickGap - brickHeight, brickWidth, brickHeight);
-            
-            passedbrick [pipePosition] = false;
-     }
-    
-    
      
-    
-            
-            
-        
-    
-        
-    
+        // GAME DRAWING ENDS HERE
+
    
-    
     // The main game loop
     // In here is where all the logic for my game will go
     public void run()
@@ -176,26 +189,54 @@ public class FinalGame extends JComponent implements KeyListener{
             // GAME LOGIC STARTS HERE 
             
             // when the player needs to wait for the game to start
-            if (start){
-            }
-                //get the bricks moving
-                if (!end){
-                     for(int i = 0; i < topbrick.length; i++){
-                         topbrick[i].y = topbrick [i].y - speed;
-                         bottombrick [i].y = bottombrick [i].y - speed;
-                         //get the bricks moving
-                         setbrick(i);
-                     }
-                     
-                
-                
-                         
-                         
-                
-            
-                
-              
-
+                //moving the player from left to right
+                if (leftkey) {
+                    squid.x = squid.x - 3;
+                } 
+                if (rightkey) {
+                    squid.x = squid.x + 3;
+                }
+                    // go through all of rectangles
+                    for (Rectangle sideRectangle : rightRectangle) {
+                        // making the rectangles to go down
+                        sideRectangle.y = sideRectangle.y + 2;
+                        if (sideRectangle.y > 600){
+                            sideRectangle.y = - 100;
+                        }
+                    }
+                    // go through all of diamonds
+                    for (Rectangle diamond : diamonds){
+                        //making the diamonds to go down
+                        diamond.y = diamond.y + 3;
+                        if (diamond.y > 600){
+                            diamond.y = -100;
+                            
+                        }
+                    }
+      
+                    //go through all of rectangles
+                    for (Rectangle sideRectangle : rightRectangle){
+                         // when the squid will collide a rectangle
+                        if(squid.intersects(sideRectangle)){
+                            // if yes the squid is hit
+                            dead = true;
+                        }
+                    }                 
+                    // go through all of diamonds
+                    for (Rectangle diamond : diamonds ){
+                        // when the squid will collide with a diamond it will ad a score
+                        if (squid.intersects (diamond)){
+                            score = score++;
+                        }
+                    }
+                    
+                    if(dead){
+                        gameFinished = 0;
+                    }
+                        
+                            
+                    
+   
             // GAME LOGIC ENDS HERE 
             
             // update the drawing (calls paintComponent)
@@ -219,25 +260,12 @@ public class FinalGame extends JComponent implements KeyListener{
             }catch(Exception e){};
                 }
              }
-            }
+ 
+            
+  
      
         
           
-    
-        
-            
-
-           
-    
-                
-          
-            
-    
-        
-   
-    
-   
-    
     /**
      * @param args the command line arguments
      */
@@ -258,7 +286,7 @@ public class FinalGame extends JComponent implements KeyListener{
         frame.pack();
         // shows the window to the user
         frame.setVisible(true);
-        
+        frame.addKeyListener(game);
         // starts my game loop
         game.run();
     }
@@ -268,12 +296,15 @@ public class FinalGame extends JComponent implements KeyListener{
     
     @Override
     public void keyPressed(KeyEvent e){
+        //moving the squid to the left using this left key
         int key = e.getExtendedKeyCode();
         if (key == KeyEvent.VK_LEFT){
             leftkey = true;
-        }
+        // moving the squid to the rigth using the rigth key
+        } 
         if (key == KeyEvent.VK_RIGHT){
             rightkey = true;
+
         }
     }
     @Override
@@ -281,7 +312,7 @@ public class FinalGame extends JComponent implements KeyListener{
         int key = e.getExtendedKeyCode();
         if (key == KeyEvent.VK_LEFT){
             leftkey = false;
-        }
+        } 
         if (key == KeyEvent.VK_RIGHT){
             rightkey = false;
         }
