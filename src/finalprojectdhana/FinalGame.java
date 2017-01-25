@@ -11,7 +11,6 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -32,12 +31,7 @@ public class FinalGame extends JComponent implements KeyListener{
     // you just need to select an approproate framerate
     long desiredFPS = 60;
     long desiredTime = (1000)/desiredFPS;
-    
-    // player position variables
-    int x = 500;
-    int y = 100; 
-    int moveX = 0;
-    int moveY = 0;
+
     
     // if the player is hit with the side
     boolean start = false;
@@ -48,6 +42,8 @@ public class FinalGame extends JComponent implements KeyListener{
     boolean rightkey = false;
     boolean leftkey = false;
     
+    //creating a score variable
+    int score = 0;
     
     // making a variable for the gravity
     int gravity = 0;
@@ -55,7 +51,7 @@ public class FinalGame extends JComponent implements KeyListener{
     //creating the squid
     Rectangle squid = new Rectangle (175, 550, 30, 30);
     
- 
+    // create a variablt for the frame rate of each pixel
     int frameCount = 0;
     
     // create diamonds
@@ -70,7 +66,7 @@ public class FinalGame extends JComponent implements KeyListener{
     BufferedImage diamond = loadImage ("diamond.png");
     BufferedImage gameOver = loadImage("gameover.png");
     
-    
+    //create a method for loading the images
     public BufferedImage loadImage(String filename) {
         BufferedImage img = null;
         try {
@@ -82,39 +78,48 @@ public class FinalGame extends JComponent implements KeyListener{
     }
 
     public FinalGame (){
+        //creating an arraylist for my blocks or rectangles that my squid needs to avoid
         rightRectangle = new ArrayList<>();
         rightRectangle.add(new Rectangle(75, 50, 40, 20));
         rightRectangle.add(new Rectangle(0, 150, 40, 20));
-        rightRectangle.add(new Rectangle(177, 440, 40, 20));
+        rightRectangle.add(new Rectangle(150, 440, 40, 20));
         rightRectangle.add(new Rectangle(250, 0, 40, 20));
         rightRectangle.add(new Rectangle(150, 400, 40, 20));
         rightRectangle.add(new Rectangle(280, 480, 40, 20));
         rightRectangle.add(new Rectangle(350, 250, 40, 20));
         rightRectangle.add(new Rectangle(275, 75, 40, 20));
-        rightRectangle.add(new Rectangle(175, 345, 40, 20));
+        rightRectangle.add(new Rectangle(15, 345, 40, 20));
         rightRectangle.add(new Rectangle(350, 300, 40, 20));
         rightRectangle.add(new Rectangle(200, 200, 40, 20));
         rightRectangle.add(new Rectangle(500, 375, 40, 20));
         rightRectangle.add(new Rectangle(50, 500, 40, 20));
         rightRectangle.add(new Rectangle(120, 550, 40, 20));
-        rightRectangle.add(new Rectangle(480, 260, 40, 20));
+        rightRectangle.add(new Rectangle(260, 350, 40, 20));
+        rightRectangle.add(new Rectangle(15, 260, 40, 20));
+        rightRectangle.add(new Rectangle(45, 25, 40, 20));
+        rightRectangle.add(new Rectangle(100, 175, 40, 20));
+        rightRectangle.add(new Rectangle(160, 90, 40, 20));
+        rightRectangle.add(new Rectangle(130, 275, 40, 20));
         
+        
+        // creating an arraylist for the diamonds that the squid need to have some score
         diamonds = new ArrayList<>();
-        diamonds.add (new Rectangle (30, 0, 30, 15));
-        diamonds.add (new Rectangle (100, 10, 30, 15));
-        diamonds.add (new Rectangle (250, 100, 30, 15));
-        diamonds.add (new Rectangle (200, 250, 30, 15));
-        diamonds.add (new Rectangle (450, 300, 30, 15));
-        diamonds.add (new Rectangle (350, 89, 30, 15));
-        diamonds.add (new Rectangle (300, 50, 30, 15));
-        diamonds.add (new Rectangle (390, 175, 30, 15));
+        diamonds.add (new Rectangle (30, 10, 30, 20));
+        diamonds.add (new Rectangle (100, 10, 30, 20));
+        diamonds.add (new Rectangle (210, 100, 30, 20));
+        diamonds.add (new Rectangle (225, 250, 30, 20));
+        diamonds.add (new Rectangle (290, 300, 30, 20));
+        diamonds.add (new Rectangle (350, 90, 30, 20));
+        diamonds.add (new Rectangle (300, 50, 30, 20));
+        diamonds.add (new Rectangle (190, 175, 30, 20));
+        diamonds.add (new Rectangle (10, 350, 30, 20));
+        diamonds.add (new Rectangle (125, 410, 30, 20));
+        diamonds.add (new Rectangle (50, 50, 30, 20));
+        diamonds.add (new Rectangle (80, 210, 30, 20));
       
     }
-    
-    
-    
+   
     // creating a score time
-    int score = 0;
     Font scoreFont = new Font ("Arial" , Font.BOLD, 42);
     
     
@@ -151,12 +156,6 @@ public class FinalGame extends JComponent implements KeyListener{
                 g.drawImage(this.sideRectangle, sideRectangle.x, sideRectangle.y, sideRectangle.width, sideRectangle.height, null);
             }
             
-           //if (gameFinished == 0){//game over screen
-            
-           //g.drawImage(gameOver, 0, 0, WIDTH, HEIGHT, null);
-            
-      
-
         //draw the font on the screen
         g.setColor (Color.WHITE);
         g.setFont(scoreFont);
@@ -194,9 +193,11 @@ public class FinalGame extends JComponent implements KeyListener{
             // GAME LOGIC STARTS HERE
                 //moving the player from left to right
                 if (leftkey) {
+                    // the squid will move at the spesd of 3 to the left
                     squid.x = squid.x - 3;
                 } 
                 if (rightkey) {
+                    // the squid will move at the speed of to the right
                     squid.x = squid.x + 3;
                 }
               
@@ -298,7 +299,7 @@ public class FinalGame extends JComponent implements KeyListener{
         int key = e.getExtendedKeyCode();
         if (key == KeyEvent.VK_LEFT){
             leftkey = true;
-        // moving the squid to the rigth using the rigth key
+        // moving the squid to the rigth using the right key
         } 
         if (key == KeyEvent.VK_RIGHT){
             rightkey = true;
@@ -309,8 +310,10 @@ public class FinalGame extends JComponent implements KeyListener{
     public void keyReleased (KeyEvent e){
         int key = e.getExtendedKeyCode();
         if (key == KeyEvent.VK_LEFT){
+            //moving the squid to the left using this left key
             leftkey = false;
         } 
+         // moving the squid to the rigth using the right key
         if (key == KeyEvent.VK_RIGHT){
             rightkey = false;
         }
