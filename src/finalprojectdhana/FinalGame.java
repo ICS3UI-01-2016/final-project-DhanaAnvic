@@ -37,7 +37,7 @@ public class FinalGame extends JComponent implements KeyListener{
     boolean start = false;
     boolean dead = false;
     
-    int gameFinished = 0;
+    
     //game avariables
     boolean rightkey = false;
     boolean leftkey = false;
