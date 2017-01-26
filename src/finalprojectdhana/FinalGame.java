@@ -23,7 +23,7 @@ import javax.swing.JFrame;
 
 public class FinalGame extends JComponent implements KeyListener{
 
-    // Height and Width of our game
+    // Height and Width of my game
     static final int WIDTH = 400;
     static final int HEIGHT = 600;
     
@@ -32,11 +32,9 @@ public class FinalGame extends JComponent implements KeyListener{
     long desiredFPS = 60;
     long desiredTime = (1000)/desiredFPS;
 
-    
     // if the player is hit with a rectangle or brick
     boolean start = false;
     boolean dead = false;
-    
     
     //game variables
     boolean rightkey = false;
