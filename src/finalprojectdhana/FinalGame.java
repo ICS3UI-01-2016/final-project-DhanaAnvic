@@ -33,12 +33,12 @@ public class FinalGame extends JComponent implements KeyListener{
     long desiredTime = (1000)/desiredFPS;
 
     
-    // if the player is hit with the side
+    // if the player is hit with a rectangle or brick
     boolean start = false;
     boolean dead = false;
     
     
-    //game avariables
+    //game variables
     boolean rightkey = false;
     boolean leftkey = false;
     
@@ -191,6 +191,7 @@ public class FinalGame extends JComponent implements KeyListener{
             
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE
+            
                 //moving the player from left to right
                 if (leftkey) {
                     // the squid will move at the spesd of 3 to the left
@@ -214,7 +215,7 @@ public class FinalGame extends JComponent implements KeyListener{
                         //making the diamonds to go down
                         diamond.y = diamond.y + 2;
                         if (diamond.y > 600){
-                            diamond.y = -100;
+                            diamond.y = - 100;
                             
                         }
                     }
